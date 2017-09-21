@@ -6,7 +6,8 @@
 enum class LayerType {
 	INPUT,
 	DATA,
-	OUTPUT
+	OUTPUT,
+	UNDEFINED
 };
 
 class Layer
@@ -17,4 +18,8 @@ public:
 
 	Layer();
 	Layer(LayerType type);
+	Layer(LayerType type, int nodes);
+
+private:
+	void initNodes(int nodeCount);
 };
