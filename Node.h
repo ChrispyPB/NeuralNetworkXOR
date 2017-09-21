@@ -8,4 +8,7 @@ public:
 	string name;
 	float wij;
 	float d;
+
+	Node();
+	Node(string name);
 };
