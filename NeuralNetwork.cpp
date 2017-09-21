@@ -1,5 +1,4 @@
 #include "NeuralNetwork.h"
-#include "InputLayer.h"
 
 NeuralNetwork::NeuralNetwork()
 {
@@ -12,7 +11,7 @@ NeuralNetwork::NeuralNetwork()
 NeuralNetwork::NeuralNetwork(vector<int> layerCount) {
 	bool error = false;
 
-	if (layerCount.size < 3)
+	if (layerCount.size() < 3)
 		error = true;
 	else if (!error) {
 		for (vector<int>::iterator it = layerCount.begin(); it != layerCount.end(); ++it) {
@@ -39,21 +38,25 @@ void NeuralNetwork::train(int count) {
 
 }
 
+vector<int> NeuralNetwork::layerCount() {
+	vector<int> layerCount;
+
+	for (vector<Layer>::iterator it = _layers.begin(); it < _layers.end(); ++it) {
+		layerCount.push_back((*it).nodes.size());
+	}
+
+	return layerCount;
+}
+
 void NeuralNetwork::initLayers(vector<int> layerCount) {
 	// Initialize 1 Input Layer
-	for (int i = 0; i < layerCount[0]; ++i) {
-		_layers.push_back(Layer(LayerType::INPUT));
-	}
+	_layers.push_back(Layer(LayerType::INPUT, layerCount[0]));
 
 	// Initialize multiple Data Layers
 	for (vector<int>::iterator it = layerCount.begin() + 1; it != layerCount.end() - 1; ++it) {
-		for (int i = 0; i < *it; ++i) {
-			_layers.push_back(Layer(LayerType::DATA));
-		}
+		_layers.push_back(Layer(LayerType::DATA, *it));
 	}
 
 	// Initialize 1 Output Layer
-	for (int i = 0; i < layerCount[layerCount.end()]; ++i) {
-		_layers.push_back(Layer(LayerType::OUTPUT));
-	}
+	_layers.push_back(Layer(LayerType::INPUT, layerCount.back()));
 }

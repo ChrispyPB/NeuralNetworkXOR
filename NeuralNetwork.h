@@ -13,16 +13,18 @@ class NeuralNetwork
 {
 public:
 	NeuralNetwork();
-	NeuralNetwork(vector<int> layers);
+	NeuralNetwork(vector<int> layerCount);
 
 	void start();
 	void stop();
 	void train(int count);
 
+	vector<int> layerCount();
+
 private:
 	vector<Layer> _layers;
 	NeuralNetworkState _state;
 
-	void initLayers(vector<int> layers);
+	void initLayers(vector<int> layerCount);
 };
 
