@@ -12,6 +12,9 @@ enum class NeuralNetworkState {
 class NeuralNetwork
 {
 public:
+	vector<Layer> layers;
+	NeuralNetworkState state;
+
 	NeuralNetwork();
 	NeuralNetwork(vector<int> layerCount);
 
@@ -25,9 +28,5 @@ public:
 	vector<int> layerCount();
 
 private:
-	vector<Layer> _layers;
-	NeuralNetworkState _state;
-
 	void initLayers(vector<int> layerCount);
 };
-
