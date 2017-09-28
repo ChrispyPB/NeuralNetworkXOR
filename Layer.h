@@ -5,7 +5,7 @@
 
 enum class LayerType {
 	INPUT,
-	DATA,
+	HIDDEN,
 	OUTPUT,
 	UNDEFINED
 };
