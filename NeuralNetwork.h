@@ -19,6 +19,9 @@ public:
 	void improve();
 	void train(float expectedResult, int count);
 
+	void save();
+	void load();
+
 	vector<int> layerCount();
 
 private:
