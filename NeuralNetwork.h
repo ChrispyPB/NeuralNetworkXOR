@@ -15,8 +15,6 @@ public:
 	NeuralNetwork();
 	NeuralNetwork(vector<int> layerCount);
 
-	void start();
-	void stop();
 	void train(int count);
 
 	vector<int> layerCount();
