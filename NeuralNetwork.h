@@ -16,6 +16,8 @@ public:
 	NeuralNetwork(vector<int> layerCount);
 
 	void train(int count);
+	float run();
+	void improve();
 
 	vector<int> layerCount();
 
