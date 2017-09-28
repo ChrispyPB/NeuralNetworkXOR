@@ -25,14 +25,14 @@ int main(int argc, char** argv) {
 	if (layerCount.size() > 0)
 		nn = NeuralNetwork(layerCount);
 
-	// Test Layer Initialization
-	layerCount = nn.layerCount();
+	clock_t begin = clock();
+	nn.train(1, 1000);
+	clock_t end = clock();
 
-	cout << "Layers: ";
-	for (vector<int>::iterator it = layerCount.begin(); it < layerCount.end(); ++it) {
-		cout << *it << " ";
-	}
-	cout << endl;
+	float time = float(end - begin) / (CLOCKS_PER_SEC / 1000);
+	cout << "Time elapsed: " << time << endl;
+
+	cout << "Best Result: " << nn.bestResult << endl;
 
 	getchar();
 
