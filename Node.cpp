@@ -1,6 +1,8 @@
 #include "Node.h"
 #include "Connection.h"
 
+#undef max(a, b)
+#undef min(a, b)
 Node::Node(vector<Connection*> inputs, vector<Connection*> outputs) {
 	this->inputs = inputs;
 	this->outputs = outputs;
