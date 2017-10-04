@@ -2,13 +2,18 @@
 
 #include "include.h"
 
+class Connection;
+
 class Node
 {
 public:
-	string name;
-	float wij;
-	float d;
+	vector<Connection*> inputs;
+	vector<Connection*> outputs;
+	vector<float> weighted;
+	float normalized;
 
-	Node();
-	Node(string name);
+	Node() : Node(vector<Connection*>(), vector<Connection*>()) {};
+	Node(vector<Connection*> inputs, vector<Connection*> outputs);
+
+	void normalize();
 };

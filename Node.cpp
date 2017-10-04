@@ -1,15 +1,17 @@
 #include "Node.h"
+#include "Connection.h"
 
-Node::Node() {
-	this->name = "node";
-
-	this->d = static_cast<float> (rand()) / static_cast<float> (RAND_MAX);
-	this->wij = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+Node::Node(vector<Connection*> inputs, vector<Connection*> outputs) {
+	this->inputs = inputs;
+	this->outputs = outputs;
 }
 
-Node::Node(string name) {
-	this->name = name;
+void Node::normalize() {
+	float sum = 0;
+	for (float value: weighted) {
+		cout << value << endl;
+		sum += value;
+	}
 
-	this->d = static_cast<float> (rand()) / static_cast<float> (RAND_MAX);
-	this->wij = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	normalized = (sum) / (numeric_limits<float>::max() - numeric_limits<float>::min());
 }
