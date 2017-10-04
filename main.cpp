@@ -32,15 +32,17 @@ int main(int argc, char** argv) {
 	// Training
 	const auto train_begin = chrono::high_resolution_clock::now();
 
-	nn.train(1000);
+	nn.train(4);
 
 	const auto train_end = chrono::high_resolution_clock::now();
 
 	const auto start_time = chrono::duration_cast<chrono::milliseconds>(start_end - start_begin).count();
 	const auto train_time = chrono::duration_cast<chrono::milliseconds>(train_end - train_begin).count();
 
-	cout << "Start time elapsed: " << start_time << "ms" << endl
+	cout << "==========================================" << endl 
+		<< "Start time elapsed: " << start_time << "ms" << endl
 		<< "Train time elapsed: " << train_time << "ms" << endl
+		<< endl
 		<< "Press any key to exit...";
 
 	getchar();

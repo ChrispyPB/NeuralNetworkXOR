@@ -43,9 +43,9 @@ HRESULT NeuralNetwork::run(vector<int> input) {
 	// Step in every layer
 	for (vector<Layer>::iterator layer = layers.begin(); layer != layers.end() - 1; ++layer) {
 		// Step in every node
-		for (Node node: layer->nodes) {
+		for (Node &node: layer->nodes) {
 			// Calculate every connection
-			for (Connection *connection: node.outputs) {
+			for (Connection *(&connection): node.outputs) {
 				connection->weighten();
 			}
 		}
@@ -103,7 +103,11 @@ void NeuralNetwork::train(int count) {
 				resultString += ", ";
 		}
 
-		printf("Run: %d Result: %s Expected: %d\n", i + 1, resultString.c_str(), expectedResult);
+		cout << "==========================================" << endl
+			<< "Run: " << i + 1 << endl
+			<< "Results: " << resultString.c_str() << endl
+			<< "Expected: " << expectedResult << endl
+			<< "==========================================" << endl;
 
 		this->improve(result, { (float)expectedResult });
 	}
@@ -137,9 +141,9 @@ void NeuralNetwork::connectNodes() {
 	// Loop for FROM-layer
 	for (vector<Layer>::iterator layer = layers.begin(); layer != layers.end() - 1; ++layer) {
 		// Loop for FROM-node
-		for (Node from_node : layer->nodes) {
+		for (Node &from_node: layer->nodes) {
 			// Loop for TO-node
-			for (Node to_node: (layer + 1)->nodes) {
+			for (Node &to_node: (layer + 1)->nodes) {
 				// Add Input and Output connections
 				Connection *connection = new Connection(&from_node, &to_node);
 
