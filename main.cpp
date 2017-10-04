@@ -19,20 +19,29 @@ int main(int argc, char** argv) {
 		}
 	}
 
+	const auto start_begin = chrono::high_resolution_clock::now();
+
 	NeuralNetwork nn;
 
-	// If no (valid) arguments are given
+	// If valid arguments are given
 	if (layerCount.size() > 0)
 		nn = NeuralNetwork(layerCount);
 
-	clock_t begin = clock();
-	nn.train(1, 1000);
-	clock_t end = clock();
+	const auto start_end = chrono::high_resolution_clock::now();
 
-	float time = float(end - begin) / (CLOCKS_PER_SEC / 1000);
-	cout << "Time elapsed: " << time << endl;
+	// Training
+	const auto train_begin = chrono::high_resolution_clock::now();
 
-	cout << "Best Result: " << nn.bestResult << endl;
+	nn.train(1000);
+
+	const auto train_end = chrono::high_resolution_clock::now();
+
+	const auto start_time = chrono::duration_cast<chrono::milliseconds>(start_end - start_begin).count();
+	const auto train_time = chrono::duration_cast<chrono::milliseconds>(train_end - train_begin).count();
+
+	cout << "Start time elapsed: " << start_time << "ms" << endl
+		<< "Train time elapsed: " << train_time << "ms" << endl
+		<< "Press any key to exit...";
 
 	getchar();
 
