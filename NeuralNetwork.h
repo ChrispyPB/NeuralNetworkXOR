@@ -2,6 +2,7 @@
 
 #include "include.h"
 #include "Layer.h"
+#include "Connection.h"
 
 enum class NeuralNetworkState {
 	RUNNING,
@@ -13,14 +14,19 @@ class NeuralNetwork
 {
 public:
 	vector<Layer> layers;
+	vector<Connection> connections;
 	NeuralNetworkState state;
 
+	float lastResult;
+	float bestResult;
+
 	NeuralNetwork();
+	NeuralNetwork(initializer_list<int> layerCount) : NeuralNetwork(vector<int>(layerCount)) {};
 	NeuralNetwork(vector<int> layerCount);
 
-	float run();
-	void improve();
-	void train(float expectedResult, int count);
+	int run(vector<int> input);
+	void improve(vector<float> result, vector<float> expectedResult);
+	void train(int count);
 
 	void save();
 	void load();
@@ -28,5 +34,6 @@ public:
 	vector<int> layerCount();
 
 private:
-	void initLayers(vector<int> layerCount);
+	void init(vector<int> layerCount);
+	void connectNodes();
 };
