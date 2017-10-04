@@ -2,7 +2,7 @@
 
 NeuralNetwork::NeuralNetwork()
 {
-	init({ 2, 3 });
+	init({ 2, 3, 1 });
 	this->state = NeuralNetworkState::IDLE;
 }
 
@@ -114,15 +114,15 @@ void NeuralNetwork::load() {
 
 void NeuralNetwork::init(vector<int> layerCount) {
 	// Create Input Layer
-	layers.push_back(Layer(layerCount[0]));
+	layers.push_back(Layer(*layerCount.begin()));
 
 	// Create Hidden Layers
-	for (int nodeCount: layerCount) {
-		layers.push_back(Layer(nodeCount));
+	for (vector<int>::iterator nodeCount = layerCount.begin() + 1; nodeCount != layerCount.end() - 1; ++nodeCount) {
+		layers.push_back(Layer(*nodeCount));
 	}	
 
 	// Create Output Layer
-	layers.push_back(Layer(layerCount[layerCount.size() - 1]));
+	layers.push_back(Layer(*(layerCount.end() - 1)));
 
 	// Create Connections between nodes
 	connectNodes();
