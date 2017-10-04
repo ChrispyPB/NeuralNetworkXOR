@@ -112,17 +112,6 @@ void NeuralNetwork::load() {
 
 }
 
-// Test Function
-vector<int> NeuralNetwork::layerCount() {
-	vector<int> layerCount;
-
-	for (Layer layer: layers) {
-		layerCount.push_back(layer.nodes.size());
-	}
-
-	return layerCount;
-}
-
 void NeuralNetwork::init(vector<int> layerCount) {
 	// Create Input Layer
 	layers.push_back(Layer(layerCount[0]));
