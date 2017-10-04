@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Windows.h>
+
 #include <string>
 #include <vector>
 #include <tuple>
@@ -7,7 +9,5 @@
 #include <iostream>
 #include <chrono>
 #include <limits>
-
-//#include <Windows.h>
 
 using namespace std;

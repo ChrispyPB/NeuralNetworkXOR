@@ -24,7 +24,7 @@ public:
 	NeuralNetwork(initializer_list<int> layerCount) : NeuralNetwork(vector<int>(layerCount)) {};
 	NeuralNetwork(vector<int> layerCount);
 
-	int run(vector<int> input);
+	HRESULT run(vector<int> input);
 	void improve(vector<float> result, vector<float> expectedResult);
 	void train(int count);
 

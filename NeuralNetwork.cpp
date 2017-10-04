@@ -28,10 +28,10 @@ NeuralNetwork::NeuralNetwork(vector<int> layerCount) {
 	}
 }
 
-int NeuralNetwork::run(vector<int> input) {
+HRESULT NeuralNetwork::run(vector<int> input) {
 	if (input.size() != layers[0].nodes.size()) {
-		cout << "Input-Vector must be as big as the Input-Layer" << endl;
-		return 1;
+		cout << "Input-Vector must be as big as Input-Layer" << endl;
+		return E_FAIL;
 	}
 
 	// Fill Input-Layer with values
@@ -55,6 +55,8 @@ int NeuralNetwork::run(vector<int> input) {
 			node->normalize();
 		}
 	}
+
+	return S_OK;
 }
 
 void NeuralNetwork::improve(vector<float> result, vector<float> expectedResult) {
@@ -66,26 +68,29 @@ void NeuralNetwork::train(int count) {
 
 	for (int i = 0; i < count; ++i) {
 		int expectedResult;
+		HRESULT error;
 
 		// Test all 4 cases of XOR
 		switch (i % 4) {
 		case 0:
-			this->run({ 0, 0 });
+			error = this->run({ 0, 0 });
 			expectedResult = 0;
 			break;
 		case 1:
-			this->run({ 1, 0 });
+			error = this->run({ 1, 0 });
 			expectedResult = 1;
 			break;
 		case 2:
-			this->run({ 0, 1 });
+			error = this->run({ 0, 1 });
 			expectedResult = 1;
 			break;
 		case 3:
-			this->run({ 1, 1 });
+			error = this->run({ 1, 1 });
 			expectedResult = 0;
 			break;
 		}
+
+		if (error != S_OK) continue;
 
 		// Get Outputs from Output-Layer
 		vector<float> result;
