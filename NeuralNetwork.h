@@ -31,8 +31,6 @@ public:
 	void save();
 	void load();
 
-	vector<int> layerCount();
-
 private:
 	void init(vector<int> layerCount);
 	void connectNodes();
