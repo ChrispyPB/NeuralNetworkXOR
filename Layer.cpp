@@ -1,24 +1,14 @@
 #include "Layer.h"
 
 Layer::Layer() {
-	this->type = LayerType::UNDEFINED;
-
-	initNodes(1);
+	this->nodes.push_back(Node());
 }
 
-Layer::Layer(LayerType type) {
-	this->type = type;
-
-	initNodes(1);
+Layer::Layer(vector<Node> nodes) {
+	this->nodes = nodes;
 }
 
-Layer::Layer(LayerType type, int nodes) {
-	this->type = type;
-
-	initNodes(nodes);
-}
-
-void Layer::initNodes(int nodeCount) {
+Layer::Layer(int nodeCount) {
 	for (int i = 0; i < nodeCount; ++i) {
 		this->nodes.push_back(Node());
 	}
