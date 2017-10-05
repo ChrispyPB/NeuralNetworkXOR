@@ -99,11 +99,11 @@ void NeuralNetwork::train(int count) {
 				resultString += ", ";
 		}
 
-		/*cout << "==========================================" << endl
+		cout << "==========================================" << endl
 			<< "Run: " << i + 1 << endl
 			<< "Results: " << resultString.c_str() << endl
 			<< "Expected: " << expectedResult << endl
-			<< "==========================================" << endl;*/
+			<< "==========================================" << endl;
 
 		this->improve(result, { (double)expectedResult });
 	}
@@ -132,7 +132,7 @@ void NeuralNetwork::init(vector<int> layerCount) {
 	// Create Hidden Layers
 	for (vector<int>::iterator nodeCount = layerCount.begin() + 1; nodeCount != layerCount.end() - 1; ++nodeCount) {
 		layers.push_back(Layer(*nodeCount));
-	}	
+	}
 
 	// Create Output Layer
 	layers.push_back(Layer(*(layerCount.end() - 1)));
