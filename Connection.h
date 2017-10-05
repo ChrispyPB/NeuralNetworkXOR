@@ -9,7 +9,7 @@ class Connection
 public:
 	Node *from;
 	Node *to;
-	float weight;
+	double weight;
 
 	Connection() : Connection(nullptr, nullptr) {};
 	Connection(Node *from, Node *to);

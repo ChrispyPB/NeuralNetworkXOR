@@ -4,6 +4,7 @@
 #include "NeuralNetwork.h"
 
 int main(int argc, char** argv) {
+	
 	vector<int> layerCount;
 	
 	// Check for command line arguments
@@ -25,14 +26,18 @@ int main(int argc, char** argv) {
 
 	// If valid arguments are given
 	if (layerCount.size() > 0)
-		nn = NeuralNetwork(layerCount);
+		nn = NeuralNetwork(layerCount, 0.9);
 
 	const auto start_end = chrono::high_resolution_clock::now();
 
 	// Training
 	const auto train_begin = chrono::high_resolution_clock::now();
 
-	nn.train(4);
+	nn.train(1000);
+
+	for (Node &node : (nn.layers.end() - 1)->nodes) {
+		cout << "Result: " << node.normalized << endl;
+	}
 
 	const auto train_end = chrono::high_resolution_clock::now();
 
@@ -46,6 +51,5 @@ int main(int argc, char** argv) {
 		<< "Press any key to exit...";
 
 	getchar();
-
 	return 0;
 }

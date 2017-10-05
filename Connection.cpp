@@ -6,7 +6,7 @@ Connection::Connection(Node *from, Node *to)
 	this->from = from;
 	this->to = to;
 
-	weight = (float)rand() / (float)RAND_MAX;
+	weight = (double)rand() / (double)RAND_MAX;
 }
 
 void Connection::weighten() {

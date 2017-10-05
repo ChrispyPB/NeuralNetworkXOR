@@ -4,29 +4,27 @@
 #include "Layer.h"
 #include "Connection.h"
 
-enum class NeuralNetworkState {
-	RUNNING,
-	TRAINING,
-	IDLE
-};
+//enum class NeuralNetworkState {
+//	RUNNING,
+//	TRAINING,
+//	IDLE
+//};
 
 class NeuralNetwork
 {
 public:
 	vector<Layer> layers;
 	vector<Connection> connections;
-	NeuralNetworkState state;
+	double learningRate;
 
-	float lastResult;
-	float bestResult;
-
-	NeuralNetwork();
-	NeuralNetwork(initializer_list<int> layerCount) : NeuralNetwork(vector<int>(layerCount)) {};
-	NeuralNetwork(vector<int> layerCount);
+	NeuralNetwork() : NeuralNetwork({ 2, 3, 1 }, 0.9) {};
+	NeuralNetwork(initializer_list<int> layerCount, double learningRate) : NeuralNetwork(vector<int>(layerCount), learningRate) {};
+	NeuralNetwork(vector<int> layerCount, double learningRate);
 
 	HRESULT run(vector<int> input);
-	void improve(vector<float> result, vector<float> expectedResult);
+	void improve(vector<double> result, vector<double> expectedResult);
 	void train(int count);
+	void resetNodes();
 
 	void save();
 	void load();

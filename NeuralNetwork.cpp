@@ -1,13 +1,9 @@
 #include "NeuralNetwork.h"
 
-NeuralNetwork::NeuralNetwork()
-{
-	init({ 2, 3, 1 });
-	this->state = NeuralNetworkState::IDLE;
-}
+#pragma warning( disable : 4244)
 
 // Initialize Neural Network with specific layer counts
-NeuralNetwork::NeuralNetwork(vector<int> layerCount) {
+NeuralNetwork::NeuralNetwork(vector<int> layerCount, double learningRate) {
 	bool error = false;
 
 	if (layerCount.size() < 3)
@@ -20,15 +16,17 @@ NeuralNetwork::NeuralNetwork(vector<int> layerCount) {
 	}
 
 	if (error)
-		cout << "There must be more than 2 layers and each layer must contain at least 1 node" << endl;
+		cout << "There must be at least 3 layers and each layer must contain at least 1 node" << endl;
 	else
 	{
 		init(layerCount);
-		this->state = NeuralNetworkState::IDLE;
+		this->learningRate = learningRate;
 	}
 }
 
 HRESULT NeuralNetwork::run(vector<int> input) {
+	resetNodes();
+
 	if (input.size() != layers[0].nodes.size()) {
 		cout << "Input-Vector must be as big as Input-Layer" << endl;
 		return E_FAIL;
@@ -59,13 +57,11 @@ HRESULT NeuralNetwork::run(vector<int> input) {
 	return S_OK;
 }
 
-void NeuralNetwork::improve(vector<float> result, vector<float> expectedResult) {
+void NeuralNetwork::improve(vector<double> result, vector<double> expectedResult) {
 
 }
 
 void NeuralNetwork::train(int count) {
-	this->state = NeuralNetworkState::TRAINING;
-
 	for (int i = 0; i < count; ++i) {
 		int expectedResult;
 		HRESULT error;
@@ -93,7 +89,7 @@ void NeuralNetwork::train(int count) {
 		if (error != S_OK) continue;
 
 		// Get Outputs from Output-Layer
-		vector<float> result;
+		vector<double> result;
 		string resultString = "";
 		for (vector<Node>::iterator node = (layers.end() - 1)->nodes.begin(); node != (layers.end() - 1)->nodes.end(); ++node) {
 			result.push_back(node->normalized);
@@ -103,13 +99,21 @@ void NeuralNetwork::train(int count) {
 				resultString += ", ";
 		}
 
-		cout << "==========================================" << endl
+		/*cout << "==========================================" << endl
 			<< "Run: " << i + 1 << endl
 			<< "Results: " << resultString.c_str() << endl
 			<< "Expected: " << expectedResult << endl
-			<< "==========================================" << endl;
+			<< "==========================================" << endl;*/
 
-		this->improve(result, { (float)expectedResult });
+		this->improve(result, { (double)expectedResult });
+	}
+}
+
+void NeuralNetwork::resetNodes() {
+	for (Layer &layer : layers) {
+		for (Node &node : layer.nodes) {
+			node.weighted.clear();
+		}
 	}
 }
 
@@ -138,6 +142,8 @@ void NeuralNetwork::init(vector<int> layerCount) {
 }
 
 void NeuralNetwork::connectNodes() {
+	srand(time(nullptr));
+
 	// Loop for FROM-layer
 	for (vector<Layer>::iterator layer = layers.begin(); layer != layers.end() - 1; ++layer) {
 		// Loop for FROM-node
