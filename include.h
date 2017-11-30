@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Windows.h>
-
 #include <string>
 #include <vector>
 #include <tuple>
@@ -10,6 +8,8 @@
 #include <chrono>
 #include <limits>
 #include <time.h>
+
+#include "Globals.h"
 
 #undef max
 #undef min

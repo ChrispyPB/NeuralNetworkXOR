@@ -11,7 +11,7 @@ public:
 	Node *to;
 	double weight;
 
-	Connection() : Connection(nullptr, nullptr) {};
+	Connection() : Connection(NULL, NULL) {};
 	Connection(Node *from, Node *to);
 
 	void weighten();

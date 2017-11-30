@@ -1,6 +1,6 @@
 #include "NeuralNetwork.h"
 
-#pragma warning( disable : 4244)
+#pragma warning(disable: 4244)
 
 // Initialize Neural Network with specific layer counts
 NeuralNetwork::NeuralNetwork(vector<int> layerCount, double learningRate) {
@@ -29,7 +29,7 @@ HRESULT NeuralNetwork::run(vector<int> input) {
 
 	if (input.size() != layers[0].nodes.size()) {
 		cout << "Input-Vector must be as big as Input-Layer" << endl;
-		return E_FAIL;
+		return HRESULT::E_FAIL;
 	}
 
 	// Fill Input-Layer with values
@@ -54,7 +54,7 @@ HRESULT NeuralNetwork::run(vector<int> input) {
 		}
 	}
 
-	return S_OK;
+	return HRESULT::S_OK;
 }
 
 void NeuralNetwork::improve(vector<double> result, vector<double> expectedResult) {
@@ -86,7 +86,7 @@ void NeuralNetwork::train(int count) {
 			break;
 		}
 
-		if (error != S_OK) continue;
+		if (error != HRESULT::S_OK) continue;
 
 		// Get Outputs from Output-Layer
 		vector<double> result;
@@ -142,7 +142,7 @@ void NeuralNetwork::init(vector<int> layerCount) {
 }
 
 void NeuralNetwork::connectNodes() {
-	srand(time(nullptr));
+	srand(time(NULL));
 
 	// Loop for FROM-layer
 	for (vector<Layer>::iterator layer = layers.begin(); layer != layers.end() - 1; ++layer) {
