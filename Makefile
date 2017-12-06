@@ -1,13 +1,6 @@
 .PHONY: build
-build17:
-	g++ -o build/nnxor17 -std=c++17 -g *.cpp
 
-build14:
-	g++ -o build/nnxor14 -std=c++14 -g *.cpp
-
+build:
+	clang++-5.0 -o build/neuralxor -std=c++17 -g -lboost_program_options src/*.cpp
 run:
-	# $(MAKE) build
-	./build/nnxor
-
-# runo:
-# 	[ -f build/nnxor ] && ./build/nnxor
+	./build/neuralxor -v
