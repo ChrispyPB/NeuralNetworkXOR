@@ -99,11 +99,12 @@ void NeuralNetwork::train(int count) {
 				resultString += ", ";
 		}
 
-		cout << "==========================================" << endl
-			<< "Run: " << i + 1 << endl
-			<< "Results: " << resultString.c_str() << endl
-			<< "Expected: " << expectedResult << endl
-			<< "==========================================" << endl;
+		if (CLA::verbose) {
+			cout << "Run: " << i + 1 << endl
+				<< "Results: " << resultString.c_str() << endl
+				<< "Expected: " << expectedResult << endl
+				/* << string(stoi(getenv("COLUMNS")), '-') */ << endl;
+		}
 
 		this->improve(result, { (double)expectedResult });
 	}
