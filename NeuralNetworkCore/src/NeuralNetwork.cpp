@@ -1,9 +1,13 @@
 #include "NeuralNetwork.h"
+#include "Globals.h"
 
-#pragma warning(disable: 4244)
+// #pragma warning(disable: 4244)
 
 // Initialize Neural Network with specific layer counts
-NeuralNetwork::NeuralNetwork(vector<int> layerCount, double learningRate) {
+NeuralNetwork::NeuralNetwork(vector<int> layerCount, double learningRate, bool verbose) {
+	this->learningRate = learningRate;
+	this->verbose = verbose;
+
 	bool error = false;
 
 	if (layerCount.size() < 3)
@@ -20,16 +24,15 @@ NeuralNetwork::NeuralNetwork(vector<int> layerCount, double learningRate) {
 	else
 	{
 		init(layerCount);
-		this->learningRate = learningRate;
 	}
 }
 
-HRESULT NeuralNetwork::run(vector<int> input) {
+RESULT NeuralNetwork::run(vector<int> input) {
 	resetNodes();
 
 	if (input.size() != layers[0].nodes.size()) {
 		cout << "Input-Vector must be as big as Input-Layer" << endl;
-		return HRESULT::E_FAIL;
+		return RESULT::ERROR;
 	}
 
 	// Fill Input-Layer with values
@@ -54,7 +57,7 @@ HRESULT NeuralNetwork::run(vector<int> input) {
 		}
 	}
 
-	return HRESULT::S_OK;
+	return RESULT::OK;
 }
 
 void NeuralNetwork::improve(vector<double> result, vector<double> expectedResult) {
@@ -64,29 +67,32 @@ void NeuralNetwork::improve(vector<double> result, vector<double> expectedResult
 void NeuralNetwork::train(int count) {
 	for (int i = 0; i < count; ++i) {
 		int expectedResult;
-		HRESULT error;
+		RESULT error;
 
 		// Test all 4 cases of XOR
-		switch (i % 4) {
-		case 0:
-			error = this->run({ 0, 0 });
-			expectedResult = 0;
-			break;
-		case 1:
-			error = this->run({ 1, 0 });
-			expectedResult = 1;
-			break;
-		case 2:
-			error = this->run({ 0, 1 });
-			expectedResult = 1;
-			break;
-		case 3:
-			error = this->run({ 1, 1 });
-			expectedResult = 0;
-			break;
-		}
+		// switch (i % 4) {
+		// case 0:
+		// 	error = this->run({ 0, 0 });
+		// 	expectedResult = 0;
+		// 	break;
+		// case 1:
+		// 	error = this->run({ 1, 0 });
+		// 	expectedResult = 1;
+		// 	break;
+		// case 2:
+		// 	error = this->run({ 0, 1 });
+		// 	expectedResult = 1;
+		// 	break;
+		// case 3:
+		// 	error = this->run({ 1, 1 });
+		// 	expectedResult = 0;
+		// 	break;
+		// }
 
-		if (error != HRESULT::S_OK) continue;
+		error = this->run({ 1, 1 });
+		expectedResult = 0;
+
+		if (error != RESULT::OK) continue;
 
 		// Get Outputs from Output-Layer
 		vector<double> result;
@@ -99,11 +105,20 @@ void NeuralNetwork::train(int count) {
 				resultString += ", ";
 		}
 
-		if (CLA::verbose) {
+
+		if (this->verbose) {
+			const char *columnsStr = getenv("COLUMNS");
+			int columns = 0;
+
+			if (columnsStr == NULL)
+				columns = stoi(columnsStr);
+			else
+				columns = 10;
+
 			cout << "Run: " << i + 1 << endl
 				<< "Results: " << resultString.c_str() << endl
 				<< "Expected: " << expectedResult << endl
-				/* << string(stoi(getenv("COLUMNS")), '-') */ << endl;
+				<< string(columns, '-') << endl;
 		}
 
 		this->improve(result, { (double)expectedResult });

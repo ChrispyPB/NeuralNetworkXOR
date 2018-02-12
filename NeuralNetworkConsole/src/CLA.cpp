@@ -2,6 +2,7 @@
 
 bool CLA::verbose = false;
 vector<int> CLA::layers = vector<int>();
+bool CLA::wait = false;
 
 void CLA::parse(int argc, char** argv) {
 	try {
@@ -10,6 +11,7 @@ void CLA::parse(int argc, char** argv) {
 			("help,h", "Print help messages")
 			("verbose,v", "Execute verbose")
 			("layers,l", po::value<vector<int> >()->multitoken(), "Set layer count")
+			("wait,w", "Wait for keyboard input at the end of the process")
 		;
 
 		po::variables_map vm;
@@ -26,6 +28,10 @@ void CLA::parse(int argc, char** argv) {
 
 		if (vm.count("layers")) {
 			CLA::layers = vm["layers"].as<vector<int> >();
+		}
+
+		if (vm.count("wait")) {
+			CLA:wait = true;
 		}
 	}
 	catch (const po::error &err) {
