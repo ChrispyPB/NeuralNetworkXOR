@@ -2,14 +2,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build NeuralNetworkCore",
+      "label": "Build brAIn Core",
       "type": "shell",
-      "command": "./buildCore.sh",
+      "command": "./brAIn/build.sh",
     },
     {
-      "label": "Build NeuralNetworkConsole",
+      "label": "Build brAIn Console",
       "type": "shell",
-      "command": "./buildConsole.sh",
+      "command": "./brAInConsole/build.sh",
     },
     {
       "label": "Build All",

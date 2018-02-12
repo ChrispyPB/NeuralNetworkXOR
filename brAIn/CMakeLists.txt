@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.9)
 
-PROJECT(NeuralNetworkConsole VERSION 1.0.1 DESCRIPTION "NeuralNetworkConsole")
+PROJECT(brAIn VERSION 1.0.1 DESCRIPTION "brAIn core library")
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -17,26 +17,19 @@ SET(CMAKE_BINARY_DIR ${PROJECT_SOURCE_DIR}/bin)
 SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 SET(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
-SET(CORE_INCLUDE "${PROJECT_SOURCE_DIR}/../NeuralNetworkCore/include")
-SET(CORE_LIB "${PROJECT_SOURCE_DIR}/../NeuralNetworkCore/bin/lnncore.so")
-
-FIND_PACKAGE(Boost 1.62
-  COMPONENTS program_options
-  REQUIRED
-)
-
 INCLUDE_DIRECTORIES(
   ${PROJECT_SOURCE_DIR}
   ${PROJECT_SOURCE_DIR}/include
-  ${CORE_INCLUDE}
 )
 
-ADD_EXECUTABLE(nnconsole
-  src/CLA.cpp
-  src/main.cpp
+ADD_LIBRARY(brain SHARED
+  src/Connection.cpp
+  src/Layer.cpp
+  src/NeuralNetwork.cpp
+  src/Node.cpp
 )
 
-TARGET_LINK_LIBRARIES(nnconsole
-  ${CORE_LIB}
-  ${Boost_LIBRARIES}
+SET_TARGET_PROPERTIES(brain PROPERTIES
+  PREFIX "l"
+  VERSION ${PROJECT_VERSION}
 )

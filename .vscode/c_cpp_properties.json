@@ -35,8 +35,8 @@
                 "/usr/include/x86_64-linux-gnu",
                 "/usr/include",
                 "${workspaceRoot}",
-                "${workspaceRoot}/NeuralNetworkCore/include",
-                "${workspaceRoot}/NeuralNetworkConsole/include"
+                "${workspaceRoot}/brAIn/include",
+                "${workspaceRoot}/brAInConsole/include"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",
@@ -51,8 +51,8 @@
                     "/usr/include/x86_64-linux-gnu",
                     "/usr/include",
                     "${workspaceRoot}",
-                    "${workspaceRoot}/NeuralNetworkCore/include",
-                    "${workspaceRoot}/NeuralNetworkConsole/include"
+                    "${workspaceRoot}/brAIn/include",
+                    "${workspaceRoot}/brAInConsole/include"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""

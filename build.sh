@@ -1,4 +1,5 @@
 #!/bin/bash
 
-./buildCore.sh
-./buildConsole.sh
+./brAIn/build.sh
+
+./brAInConsole/build.sh

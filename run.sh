@@ -2,4 +2,4 @@
 
 ./build.sh
 
-./NeuralNetworkConsole/bin/nnconsole -v -l 2 3 1
+./brAInConsole/bin/brain -v -l 2 3 1
